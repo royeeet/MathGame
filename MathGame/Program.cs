@@ -84,11 +84,11 @@ void subtraction()
         int sub_secondValue = rand.Next(10);
 
         Console.WriteLine("solve the following: ");
-        Console.WriteLine($"{sub_firstValue} + {sub_secondValue}");
+        Console.WriteLine($"{sub_firstValue} - {sub_secondValue}");
 
         Console.Write("your answer: ");
         var subCheck = int.Parse(Console.ReadLine());
-        if (subCheck == sub_firstValue + sub_secondValue)
+        if (subCheck == sub_firstValue - sub_secondValue)
         {
             Console.WriteLine("correct");
         }
@@ -110,11 +110,11 @@ void multiplication()
         int mult_secondValue = rand.Next(10);
 
         Console.WriteLine("solve the following: ");
-        Console.WriteLine($"{mult_firstValue} + {mult_secondValue}");
+        Console.WriteLine($"{mult_firstValue} x {mult_secondValue}");
 
         Console.Write("your answer: ");
         var multCheck = int.Parse(Console.ReadLine());
-        if (multCheck == mult_firstValue + mult_secondValue)
+        if (multCheck == mult_firstValue * mult_secondValue)
         {
             Console.WriteLine("correct");
         }
@@ -133,13 +133,17 @@ void division()
         Random rand = new Random();
         int div_firstValue = rand.Next(10);
         int div_secondValue = rand.Next(10);
+        if (div_firstValue <=0 ||  div_secondValue <=0 || div_secondValue < div_firstValue)
+        {
+            rand.Next();
+        }
 
         Console.WriteLine("solve the following: ");
-        Console.WriteLine($"{div_firstValue} + {div_secondValue}");
+        Console.WriteLine($"{div_firstValue} / {div_secondValue}");
 
         Console.Write("your answer: ");
         var divCheck = int.Parse(Console.ReadLine());
-        if (divCheck == div_firstValue + div_secondValue)
+        if (divCheck == div_firstValue / div_secondValue)
         {
             Console.WriteLine("correct");
         }

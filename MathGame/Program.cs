@@ -12,7 +12,7 @@
  * 5. any games played should be stored in some kind of list, which the user can view, no need for db tho
  */
 
-
+GameMenu();
 void GameMenu()
 {
     Console.WriteLine("enter your name: ");
@@ -55,24 +55,23 @@ void addition()
     do
     {
         Random rand = new Random();
-        int add_firstValue = rand.Next(0, 100);
-        int add_secondValue = rand.Next(0, 100);
+        int add_firstValue = rand.Next(10);
+        int add_secondValue = rand.Next(10);
 
         Console.WriteLine("solve the following: ");
-        Console.WriteLine(add_firstValue + add_secondValue);
+        Console.WriteLine($"{add_firstValue} + {add_secondValue}");
 
         Console.Write("your answer: ");
         var addCheck = int.Parse(Console.ReadLine());
         if (addCheck == add_firstValue + add_secondValue)
         {
             Console.WriteLine("correct");
-            
         }
         else
         {
             addLoop = true;
         }
-    } while (addLoop = false);
+    } while (addLoop == false);
 }
 
 void subtraction()

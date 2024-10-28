@@ -76,25 +76,76 @@ void addition()
 
 void subtraction()
 {
-    Random rand = new Random();
-    int sub_firstValue = rand.Next(0, 100);
-    int sub_secondValue = rand.Next(0, 100);
-    Console.WriteLine($"{sub_firstValue} + {sub_secondValue}");
+    var subLoop = false;
+    do
+    {
+        Random rand = new Random();
+        int sub_firstValue = rand.Next(10);
+        int sub_secondValue = rand.Next(10);
+
+        Console.WriteLine("solve the following: ");
+        Console.WriteLine($"{sub_firstValue} + {sub_secondValue}");
+
+        Console.Write("your answer: ");
+        var subCheck = int.Parse(Console.ReadLine());
+        if (subCheck == sub_firstValue + sub_secondValue)
+        {
+            Console.WriteLine("correct");
+        }
+        else
+        {
+            subLoop = true;
+        }
+    } while (subLoop == false);
 }
+
 
 void multiplication()
 {
-    Random rand = new Random();
-    int mult_firstValue = rand.Next(0, 100);
-    int mult_secondValue = rand.Next(0, 100);
-    Console.WriteLine($"{mult_firstValue} + {mult_secondValue}");
+    var multLoop = false;
+    do
+    {
+        Random rand = new Random();
+        int mult_firstValue = rand.Next(10);
+        int mult_secondValue = rand.Next(10);
+
+        Console.WriteLine("solve the following: ");
+        Console.WriteLine($"{mult_firstValue} + {mult_secondValue}");
+
+        Console.Write("your answer: ");
+        var multCheck = int.Parse(Console.ReadLine());
+        if (multCheck == mult_firstValue + mult_secondValue)
+        {
+            Console.WriteLine("correct");
+        }
+        else
+        {
+            multLoop = true;
+        }
+    } while (multLoop == false);
 }
 
 void division()
 {
-    Random rand = new Random();
-    int div_firstValue = rand.Next(0, 100);
+    var divLoop = false;
+    do
+    {
+        Random rand = new Random();
+        int div_firstValue = rand.Next(10);
+        int div_secondValue = rand.Next(10);
 
-    int div_secondValue = rand.Next(0, 100);
-    Console.WriteLine($"{div_firstValue} + {div_secondValue}");
+        Console.WriteLine("solve the following: ");
+        Console.WriteLine($"{div_firstValue} + {div_secondValue}");
+
+        Console.Write("your answer: ");
+        var divCheck = int.Parse(Console.ReadLine());
+        if (divCheck == div_firstValue + div_secondValue)
+        {
+            Console.WriteLine("correct");
+        }
+        else
+        {
+            divLoop = true;
+        }
+    } while (divLoop == false);
 }

@@ -7,7 +7,7 @@
  * 
  * 3. they should loop until the user inputs the wrong answer, with exceptions handled (putting a letter instead of a number)
  * 
- * 4. the divisions must result in integers only, with dividends being 0-100??(come back to that one)
+ * 4. the divisions must result in integers only, with dividends being 0-100
  * 
  * 5. any games played should be stored in some kind of list, which the user can view, no need for db tho
  */
@@ -131,25 +131,33 @@ void division()
     do
     {
         Random rand = new Random();
-        int div_firstValue = rand.Next(10);
-        int div_secondValue = rand.Next(10);
-        if (div_firstValue <=0 ||  div_secondValue <=0 || div_secondValue < div_firstValue)
+        int div_firstValue = rand.Next(1,100);
+        int div_secondValue = rand.Next(1, 100);
+
+        var remainderChecker = div_firstValue % div_secondValue;
+
+        if (remainderChecker != 0)
         {
-            rand.Next();
+            div_firstValue = rand.Next(1, 100);
         }
 
-        Console.WriteLine("solve the following: ");
-        Console.WriteLine($"{div_firstValue} / {div_secondValue}");
-
-        Console.Write("your answer: ");
-        var divCheck = int.Parse(Console.ReadLine());
-        if (divCheck == div_firstValue / div_secondValue)
-        {
-            Console.WriteLine("correct");
-        }
         else
         {
-            divLoop = true;
+            Console.WriteLine("solve the following: ");
+            Console.WriteLine($"{div_firstValue} / {div_secondValue}");
+
+            Console.Write("your answer: ");
+            var divCheck = int.Parse(Console.ReadLine());
+            if (divCheck == div_firstValue / div_secondValue)
+            {
+                Console.WriteLine("correct");
+            }
+            else
+            {
+                divLoop = true;
+            }
         }
+
+        
     } while (divLoop == false);
 }

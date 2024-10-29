@@ -17,7 +17,7 @@ namespace MathGameApp
 {
     public class MathGame()
     {
-        void GameMenu()
+        public void GameMenu()
         {
             List<string> PreviousGames = new List<string>();
 
@@ -59,8 +59,6 @@ namespace MathGameApp
                     Console.WriteLine("select one of the options bruv");
                     break;
             }
-
-
         }
 
         void addition()
@@ -177,7 +175,7 @@ namespace MathGameApp
             } while (divLoop == false);
         }
 
-        void GameHistory()
+        public void GameHistory()
         {
             foreach (string players in PreviousGames)
             {

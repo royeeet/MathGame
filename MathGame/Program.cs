@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 /* math game requirements:
  * 1. open with a menu prompting the user for their name, followed by choosing one of the 4 operators - done
@@ -19,46 +20,44 @@ namespace MathGameApp
     {
         public static void Main()
         {
-            List<string> PreviousGames = new List<string>();
+            Console.WriteLine("enter your name: ");
+            var player = Console.ReadLine();
+            PreviousGames.Add
 
-                Console.WriteLine("enter your name: ");
-                var player = Console.ReadLine();
-                PreviousGames.Add(player);
+            Console.WriteLine("choose an operation to play in: ");
+            Console.WriteLine("a - addition");
+            Console.WriteLine("s - subtraction");
+            Console.WriteLine("m - multiplication");
+            Console.WriteLine("d - division");
+            Console.WriteLine("v - view game history");
+            var gameChoice = Console.ReadLine();
 
-                Console.WriteLine("choose an operation to play in: ");
-                Console.WriteLine("a - addition");
-                Console.WriteLine("s - subtraction");
-                Console.WriteLine("m - multiplication");
-                Console.WriteLine("d - division");
-                Console.WriteLine("v - view game history");
-                var gameChoice = Console.ReadLine();
+            switch (gameChoice)
+            {
+                case "a":
+                    addition();
+                    break;
 
-                switch (gameChoice)
-                {
-                    case "a":
-                        addition();
-                        break;
+                case "s":
+                    subtraction();
+                    break;
 
-                    case "s":
-                        subtraction();
-                        break;
+                case "m":
+                    multiplication();
+                    break;
 
-                    case "m":
-                        multiplication();
-                        break;
+                case "d":
+                    division();
+                    break;
 
-                    case "d":
-                        division();
-                        break;
+                case "v":
+                    GameHistory();
+                    break;
 
-                    case "v":
-                        GameHistory();
-                        break;
-
-                    default:
-                        Console.WriteLine("select one of the options bruv");
-                        break;
-                }
+                default:
+                    Console.WriteLine("select one of the options bruv");
+                    break;
+            }
             
 
                 
@@ -225,10 +224,13 @@ namespace MathGameApp
 
             void GameHistory()
             {
-                foreach (string players in PreviousGames)
+                List<string> PreviousGames = new List<string>();
+                foreach (var players in PreviousGames)
                 {
                     Console.WriteLine(players);
+                    Console.Read();
                 }
+            
             }
         }
 

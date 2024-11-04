@@ -22,7 +22,6 @@ namespace MathGameApp
         {
             Console.WriteLine("enter your name: ");
             var player = Console.ReadLine();
-            PreviousGames.Add
 
             Console.WriteLine("choose an operation to play in: ");
             Console.WriteLine("a - addition");
@@ -225,10 +224,24 @@ namespace MathGameApp
             void GameHistory()
             {
                 List<string> PreviousGames = new List<string>();
+
+                PreviousGames.Add(player);
+                
                 foreach (var players in PreviousGames)
                 {
                     Console.WriteLine(players);
-                    Console.Read();
+
+                    Console.WriteLine("back to menu? (y/n)");
+                    var restartGame = Console.ReadLine();
+
+                    if (restartGame == "y")
+                    {
+                        Main();
+                    }
+                    else
+                    {
+                        Environment.Exit(0);
+                    }
                 }
             
             }

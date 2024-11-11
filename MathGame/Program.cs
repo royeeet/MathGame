@@ -20,8 +20,12 @@ namespace MathGameApp
     {
         public static void Main()
         {
+
+            List<string> PreviousPlayers = new List<string>();
+
             Console.WriteLine("enter your name: ");
             var player = Console.ReadLine();
+            PreviousPlayers.Add(player);
 
             Console.WriteLine("choose an operation to play in: ");
             Console.WriteLine("a - addition");
@@ -57,9 +61,16 @@ namespace MathGameApp
                     Console.WriteLine("select one of the options bruv");
                     break;
             }
-            
 
-                
+            void GameHistory()
+            {
+                for (int i = 0;  i < PreviousPlayers.Count; i++)
+                {
+                    Console.WriteLine(PreviousPlayers[i]);
+                }
+            }
+
+
 
             void addition()
             {
@@ -221,30 +232,7 @@ namespace MathGameApp
                 } while (divLoop == false);
             }
 
-            void GameHistory()
-            {
-                List<string> PreviousGames = new List<string>();
-
-                PreviousGames.Add(player);
-                
-                foreach (var players in PreviousGames)
-                {
-                    Console.WriteLine(players);
-
-                    Console.WriteLine("back to menu? (y/n)");
-                    var restartGame = Console.ReadLine();
-
-                    if (restartGame == "y")
-                    {
-                        Main();
-                    }
-                    else
-                    {
-                        Environment.Exit(0);
-                    }
-                }
             
-            }
         }
 
         

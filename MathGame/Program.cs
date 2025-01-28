@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Schema;
 
 /* math game requirements:
  * 1. open with a menu prompting the user for their name, followed by choosing one of the 4 operators - done
@@ -11,7 +12,7 @@ using System.Linq;
  * 
  * 4. the divisions must result in integers only, with dividends being 0-100 - done
  * 
- * 5. any games played should be stored in some kind of list, which the user can view, no need for db tho
+ * 5. any games played should be stored in some kind of list, which the user can view, no need for db tho -done
  */
 
 namespace MathGameApp
@@ -20,12 +21,10 @@ namespace MathGameApp
     {
         public static void Main()
         {
-
-            List<string> PreviousPlayers = new List<string>();
+            var games = new List<string>();
 
             Console.WriteLine("enter your name: ");
             var player = Console.ReadLine();
-            PreviousPlayers.Add(player);
 
             Console.WriteLine("choose an operation to play in: ");
             Console.WriteLine("a - addition");
@@ -33,9 +32,10 @@ namespace MathGameApp
             Console.WriteLine("m - multiplication");
             Console.WriteLine("d - division");
             Console.WriteLine("v - view game history");
+            Console.WriteLine("q - quit");
             var gameChoice = Console.ReadLine();
 
-            switch (gameChoice)
+            switch (gameChoice.Trim().ToLower())
             {
                 case "a":
                     addition();
@@ -57,24 +57,21 @@ namespace MathGameApp
                     GameHistory();
                     break;
 
+                case "q":
+                    Console.WriteLine("safe init");
+                    Environment.Exit(0);
+                    break;
+
                 default:
                     Console.WriteLine("select one of the options bruv");
                     break;
             }
 
-            void GameHistory()
-            {
-                for (int i = 0;  i < PreviousPlayers.Count; i++)
-                {
-                    Console.WriteLine(PreviousPlayers[i]);
-                }
-            }
-
-
-
             void addition()
             {
+                Console.Clear();
                 var addLoop = false;
+                var score = 0;
 
                 do
                 {
@@ -89,31 +86,38 @@ namespace MathGameApp
                     var addCheck = int.Parse(Console.ReadLine());
                     if (addCheck == add_firstValue + add_secondValue)
                     {
+                        Console.Clear();
                         Console.WriteLine("correct");
+                        score++;
                     }
                     else
                     {
                         addLoop = true;
-                        Console.WriteLine("incorrect. try again? (y/n)");
+                        Console.WriteLine($"finished cuz. you got {score} try again? (y/n)");
                         var restartGame = Console.ReadLine();
 
                         if (restartGame == "y")
                         {
-                            Main();
+                            addition();
                         }
                         else
                         {
-                            Environment.Exit(0);
+                            Main();
                         }
                     }
 
                     
+                    games.Add($"{player} - Addition: Score = {score}");
+
                 } while (addLoop == false);
+                
             }
 
             void subtraction()
             {
+                Console.Clear();
                 var subLoop = false;
+                var score = 0;
                 do
                 {
                     Random rand = new Random();
@@ -128,29 +132,34 @@ namespace MathGameApp
                     if (subCheck == sub_firstValue - sub_secondValue)
                     {
                         Console.WriteLine("correct");
+                        score++;
                     }
                     else
                     {
                         subLoop = true;
-                        Console.WriteLine("incorrect. try again? (y/n)");
+                        Console.WriteLine($"finished cuz. you got {score} try again? (y/n)");
                         var restartGame = Console.ReadLine();
 
                         if (restartGame == "y")
                         {
-                            Main();
+                            subtraction();
                         }
                         else
                         {
-                            Environment.Exit(0);
+                            Main();
                         }
                     }
+
+                    games.Add($"{player} - subtraction: Score = {score}");
+
                 } while (subLoop == false);
             }
 
-
             void multiplication()
             {
+                Console.Clear();
                 var multLoop = false;
+                var score = 0;
                 do
                 {
                     Random rand = new Random();
@@ -165,28 +174,34 @@ namespace MathGameApp
                     if (multCheck == mult_firstValue * mult_secondValue)
                     {
                         Console.WriteLine("correct");
+                        score++;
                     }
                     else
                     {
                         multLoop = true;
-                        Console.WriteLine("incorrect. try again? (y/n)");
+                        Console.WriteLine($"finished cuz. you got {score} try again? (y/n)");
                         var restartGame = Console.ReadLine();
 
                         if (restartGame == "y")
                         {
-                            Main();
+                            multiplication();
                         }
                         else
                         {
-                            Environment.Exit(0);
+                            Main();
                         }
                     }
+
+                    games.Add($"{player} - multiplication: Score = {score}");
+
                 } while (multLoop == false);
             }
 
             void division()
             {
+                Console.Clear();
                 var divLoop = false;
+                var score = 0;
                 do
                 {
                     Random rand = new Random();
@@ -210,28 +225,39 @@ namespace MathGameApp
                         if (divCheck == div_firstValue / div_secondValue)
                         {
                             Console.WriteLine("correct");
+                            score++;
                         }
                         else
                         {
                             divLoop = true;
-                            Console.WriteLine("incorrect. try again? (y/n)");
+                            Console.WriteLine($"finished cuz. you got {score} try again? (y/n)");
                             var restartGame = Console.ReadLine();
 
                             if (restartGame == "y")
                             {
-                                Main();
+                                division();
                             }
                             else
                             {
-                                Environment.Exit(0);
+                                Main();
                             }
                         }
                     }
 
+                    games.Add($"{player} - division: Score = {score}");
 
                 } while (divLoop == false);
             }
 
+            void GameHistory()
+            {
+                Console.Clear();
+                Console.WriteLine("game history");
+                foreach (var game in games)
+                {
+                    Console.WriteLine(game);
+                }
+            }
             
         }
 

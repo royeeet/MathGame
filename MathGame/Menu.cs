@@ -6,7 +6,8 @@ namespace MathGame
     internal class Menu
     {
         GameEngine engine = new();
-        internal void GameMenu(string player)
+
+        public void GameMenu(string player)
         {
             Console.WriteLine("choose an operation to play in: ");
             Console.WriteLine("a - addition");

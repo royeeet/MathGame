@@ -8,7 +8,8 @@ namespace MathGame
     internal class Helpers
     {
         public static string player = GetName();
-        public static List<string> games = new List<string>();
+        public static List<Game> games = new List<string>();
+
         public static void GameHistory()
         {
             Console.Clear();
@@ -39,6 +40,15 @@ namespace MathGame
             Console.WriteLine("enter your name: ");
             var player = Console.ReadLine();
             return player;
+        }
+
+        internal static void AddToHistory(int score, string gameChoice)
+        {
+            games.Add(new Game
+            {
+                Type = gameChoice,
+                Score = score
+            });
         }
     }
 }

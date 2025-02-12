@@ -32,7 +32,7 @@ namespace MathGame
                 else
                 {
                     addLoop = true;
-                    Helpers.games.Add($"{Helpers.player} - Addition: Score = {score}");
+                    Helpers.AddToHistory(score, "addition");
                     Console.WriteLine($"finished cuz. you got {score} try again? (y/n)");
                     var restartGame = Console.ReadLine();
 
@@ -77,7 +77,7 @@ namespace MathGame
                 else
                 {
                     subLoop = true;
-                    Helpers.games.Add($"{Helpers.player} - subtraction: Score = {score}");
+                    Helpers.AddToHistory(score, "subtraction");
                     Console.WriteLine($"finished cuz. you got {score} try again? (y/n)");
                     var restartGame = Console.ReadLine();
 
@@ -121,7 +121,7 @@ namespace MathGame
                 else
                 {
                     multLoop = true;
-                    Helpers.games.Add($"{Helpers.player} - multiplication: Score = {score}");
+                    Helpers.AddToHistory(score, "multiplication");
                     Console.WriteLine($"finished cuz. you got {score} try again? (y/n)");
                     var restartGame = Console.ReadLine();
 
@@ -174,7 +174,7 @@ namespace MathGame
                     else
                     {
                         divLoop = true;
-                        Helpers.games.Add($"{Helpers.player} - division: Score = {score}");
+                        Helpers.AddToHistory(score, "division");
                         Console.WriteLine($"finished cuz. you got {score} try again? (y/n)");
                         var restartGame = Console.ReadLine();
 

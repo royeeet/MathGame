@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using MathGame;
+using MathGame.Models;
 
 
 namespace MathGame
@@ -8,7 +8,7 @@ namespace MathGame
     internal class Helpers
     {
         public static string player = GetName();
-        public static List<Game> games = new List<string>();
+        public static List<Game> games = new List<Game>();
 
         public static void GameHistory()
         {
@@ -23,10 +23,10 @@ namespace MathGame
             {
                 foreach (var game in games)
                 {
-                    Console.WriteLine(game);
+                    Console.WriteLine($"{player}: {game.Type} - Score = {game.Score}");
                 }
             }
-            
+
             Console.WriteLine("press a key to exit init");
             Console.ReadLine();
             Console.Clear();
@@ -39,16 +39,87 @@ namespace MathGame
         {
             Console.WriteLine("enter your name: ");
             var player = Console.ReadLine();
+            while (string.IsNullOrEmpty(player))
+            {
+                Console.WriteLine("i said state ur name cuz");
+                player = Console.ReadLine();
+            }
             return player;
         }
 
-        internal static void AddToHistory(int score, string gameChoice)
+        internal static void AddToHistory(int score, GameType gameChoice)
         {
             games.Add(new Game
             {
                 Type = gameChoice,
                 Score = score
             });
+        }
+
+        internal static int Validation(string input)
+        {
+            int result;
+            while (string.IsNullOrEmpty(input) || !Int32.TryParse(input, out result))
+            {
+                Console.WriteLine("answer needs to be an integer, try again");
+                input = Console.ReadLine();
+            }
+            return result;
+        }
+
+        internal static string ValidationYesOrNo(string prompt)
+        {
+            Console.WriteLine(prompt);
+            string yesOrNo = Console.ReadLine();
+            while (yesOrNo != "y" && yesOrNo != "n")
+            {
+                Console.WriteLine("yes or no bruv");
+                yesOrNo = Console.ReadLine();
+            }
+            return yesOrNo;
+        }
+
+        internal static (int, int, int) GetNumbersAndQuestion(string operation)
+        {
+            Random rand = new Random();
+            int firstValue = rand.Next(10);
+            int secondValue = rand.Next(10);
+
+            Console.WriteLine("solve the following: ");
+            Console.WriteLine($"{firstValue} {operation} {secondValue}");
+
+            Console.Write("your answer: ");
+            string input = Console.ReadLine();
+            int userAnswer = Validation(input);
+            return (firstValue, secondValue, userAnswer);
+        }
+
+        internal static (bool loop, int score) InitialiseGame()
+        {
+            Console.Clear();
+            var loop = false;
+            var score = 0;
+            return (loop, score);
+        }
+
+        internal static (int, int, int) CheckThatNumbersAreDivisable()
+        {
+            Random rand = new Random();
+            int dividend, divisor;
+
+            do
+            {
+                dividend = rand.Next(1, 100);
+                divisor = rand.Next(1, 100);
+            }
+            while (dividend % divisor != 0);
+
+            Console.WriteLine("solve the following: ");
+            Console.WriteLine($"{dividend} / {divisor}");
+            string input = Console.ReadLine();
+            int userAnswer = Validation(input);
+
+            return (dividend, divisor, userAnswer);
         }
     }
 }

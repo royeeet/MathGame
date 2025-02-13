@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using MathGame;
+using MathGame.Models;
 
 namespace MathGame
 {
@@ -8,67 +7,53 @@ namespace MathGame
     {
         internal void addition()
         {
-            Console.Clear();
-            var addLoop = false;
-            var score = 0;
+
+            var (loop, score) = Helpers.InitialiseGame();
 
             do
             {
-                Random rand = new Random();
-                int add_firstValue = rand.Next(10);
-                int add_secondValue = rand.Next(10);
+                var (firstValue, secondValue, result) = Helpers.GetNumbersAndQuestion("+");
 
-                Console.WriteLine("solve the following: ");
-                Console.WriteLine($"{add_firstValue} + {add_secondValue}");
-
-                Console.Write("your answer: ");
-                var addCheck = int.Parse(Console.ReadLine());
-                if (addCheck == add_firstValue + add_secondValue)
+                
+                if (result != firstValue + secondValue)
                 {
-                    Console.Clear();
-                    Console.WriteLine("correct");
-                    score++;
-                }
-                else
-                {
-                    addLoop = true;
-                    Helpers.AddToHistory(score, "addition");
-                    Console.WriteLine($"finished cuz. you got {score} try again? (y/n)");
-                    var restartGame = Console.ReadLine();
+                    loop = true;
+                    Helpers.AddToHistory(score, GameType.Addition);
+                    Console.WriteLine($"finished cuz. you got {score}");
+                    string restartGame = Helpers.ValidationYesOrNo("try again y/n");
 
                     if (restartGame == "y")
                     {
                         Console.Clear();
                         addition();
                     }
-                    else
+                    else if (restartGame == "n")
                     {
                         Console.Clear();
                         Menu menu = new Menu();
                         menu.GameMenu(Helpers.player);
                     }
+
                 }
-            } while (addLoop == false);
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("correct");
+                    score++;
+                }
+            } while (loop == false);
 
         }
 
         internal void subtraction()
         {
-            Console.Clear();
-            var subLoop = false;
-            var score = 0;
+            var (loop, score) = Helpers.InitialiseGame();
             do
             {
-                Random rand = new Random();
-                int sub_firstValue = rand.Next(10);
-                int sub_secondValue = rand.Next(10);
+                var (firstValue, secondValue, result) = Helpers.GetNumbersAndQuestion("-");
 
-                Console.WriteLine("solve the following: ");
-                Console.WriteLine($"{sub_firstValue} - {sub_secondValue}");
 
-                Console.Write("your answer: ");
-                var subCheck = int.Parse(Console.ReadLine());
-                if (subCheck == sub_firstValue - sub_secondValue)
+                if (result == firstValue - secondValue)
                 {
                     Console.Clear();
                     Console.WriteLine("correct");
@@ -76,43 +61,39 @@ namespace MathGame
                 }
                 else
                 {
-                    subLoop = true;
-                    Helpers.AddToHistory(score, "subtraction");
-                    Console.WriteLine($"finished cuz. you got {score} try again? (y/n)");
-                    var restartGame = Console.ReadLine();
+                    loop = true;
+                    Helpers.AddToHistory(score, GameType.Subtraction);
+                    Console.WriteLine($"finished cuz. you got {score}");
+                    string restartGame = Helpers.ValidationYesOrNo("try again y/n");
 
                     if (restartGame == "y")
                     {
                         Console.Clear();
                         subtraction();
                     }
-                    else
+                    else if (restartGame == "n")
                     {
                         Console.Clear();
                         Menu menu = new Menu();
                         menu.GameMenu(Helpers.player);
                     }
+                    else
+                    {
+                        Console.WriteLine("yes or no bruv");
+                    }
                 }
-            } while (subLoop == false);
+            } while (loop == false);
         }
 
         internal void multiplication()
         {
-            Console.Clear();
-            var multLoop = false;
-            var score = 0;
+            var (loop, score) = Helpers.InitialiseGame();
             do
             {
-                Random rand = new Random();
-                int mult_firstValue = rand.Next(10);
-                int mult_secondValue = rand.Next(10);
+                var (firstValue, secondValue, result) = Helpers.GetNumbersAndQuestion("x");
 
-                Console.WriteLine("solve the following: ");
-                Console.WriteLine($"{mult_firstValue} x {mult_secondValue}");
 
-                Console.Write("your answer: ");
-                var multCheck = int.Parse(Console.ReadLine());
-                if (multCheck == mult_firstValue * mult_secondValue)
+                if (result == firstValue * secondValue)
                 {
                     Console.Clear();
                     Console.WriteLine("correct");
@@ -120,78 +101,68 @@ namespace MathGame
                 }
                 else
                 {
-                    multLoop = true;
-                    Helpers.AddToHistory(score, "multiplication");
-                    Console.WriteLine($"finished cuz. you got {score} try again? (y/n)");
-                    var restartGame = Console.ReadLine();
+                    loop = true;
+                    Helpers.AddToHistory(score, GameType.Multiplication);
+                    Console.WriteLine($"finished cuz. you got {score}");
+                    string restartGame = Helpers.ValidationYesOrNo("try again y/n");
 
                     if (restartGame == "y")
                     {
                         Console.Clear();
                         multiplication();
                     }
-                    else
+                    else if (restartGame == "n")
                     {
                         Console.Clear();
                         Menu menu = new Menu();
                         menu.GameMenu(Helpers.player);
                     }
+                    else
+                    {
+                        Console.WriteLine("yes or no bruv");
+                    }
                 }
-            } while (multLoop == false);
+            } while (loop == false);
         }
 
         internal void division()
         {
-            Console.Clear();
-            var divLoop = false;
-            var score = 0;
+            var (loop, score) = Helpers.InitialiseGame();
             do
             {
-                Random rand = new Random();
-                int div_firstValue = rand.Next(1, 100);
-                int div_secondValue = rand.Next(1, 100);
+                var (firstValue, secondValue, result) = Helpers.CheckThatNumbersAreDivisable();
 
-                var remainderChecker = div_firstValue % div_secondValue;
-
-                if (remainderChecker != 0)
+                if (result == firstValue / secondValue)
                 {
-                    div_firstValue = rand.Next(1, 100);
+                    Console.Clear();
+                    Console.WriteLine("correct");
+                    score++;
                 }
-
                 else
                 {
-                    Console.WriteLine("solve the following: ");
-                    Console.WriteLine($"{div_firstValue} / {div_secondValue}");
+                    loop = true;
+                    Helpers.AddToHistory(score, GameType.Division);
+                    Console.WriteLine($"finished cuz. you got {score}");
+                    string restartGame = Helpers.ValidationYesOrNo("try again y/n");
 
-                    Console.Write("your answer: ");
-                    var divCheck = int.Parse(Console.ReadLine());
-                    if (divCheck == div_firstValue / div_secondValue)
+                    if (restartGame == "y")
                     {
                         Console.Clear();
-                        Console.WriteLine("correct");
-                        score++;
+                        division();
+                    }
+                    else if (restartGame == "n")
+                    {
+                        Console.Clear();
+                        Menu menu = new Menu();
+                        menu.GameMenu(Helpers.player);
                     }
                     else
                     {
-                        divLoop = true;
-                        Helpers.AddToHistory(score, "division");
-                        Console.WriteLine($"finished cuz. you got {score} try again? (y/n)");
-                        var restartGame = Console.ReadLine();
-
-                        if (restartGame == "y")
-                        {
-                            Console.Clear();
-                            division();
-                        }
-                        else
-                        {
-                            Console.Clear();
-                            Menu menu = new Menu();
-                            menu.GameMenu(Helpers.player);
-                        }
+                        Console.WriteLine("yes or no bruv");
                     }
                 }
-            } while (divLoop == false);
+
+            } while (loop == false);
         }
     }
 }

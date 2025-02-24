@@ -5,7 +5,7 @@ namespace MathGame
 {
     internal class Menu
     {
-        GameEngine engine = new();
+        GameEngine gameMenu = new();
 
         public void GameMenu(string player)
         {
@@ -18,22 +18,24 @@ namespace MathGame
             Console.WriteLine("q - quit");
             var gameChoice = Console.ReadLine();
 
+            Helpers.ProcessGameChoice(gameChoice, player);
+
             switch (gameChoice.Trim().ToLower())
             {
                 case "a":
-                    engine.addition();
+                    gameMenu.addition();
                     break;
 
                 case "s":
-                    engine.subtraction();
+                    gameMenu.subtraction();
                     break;
 
                 case "m":
-                    engine.multiplication();
+                    gameMenu.multiplication();
                     break;
 
                 case "d":
-                    engine.division();
+                    gameMenu.division();
                     break;
 
                 case "v":

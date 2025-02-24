@@ -12,6 +12,10 @@ using MathGame;
  * 4. the divisions must result in integers only, with dividends being 0-100 - done
  * 
  * 5. any games played should be stored in some kind of list, which the user can view, no need for db tho -done
+ * 
+ * 6. implement levels of difficulty
+ * 
+ * 7. add a timer for games
  */
 
 Menu menu = new Menu();

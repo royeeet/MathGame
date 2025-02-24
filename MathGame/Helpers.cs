@@ -94,12 +94,11 @@ namespace MathGame
             return (firstValue, secondValue, userAnswer);
         }
 
-        internal static (bool loop, int score) InitialiseGame()
+        internal static bool InitialiseGame()
         {
             Console.Clear();
-            var loop = false;
-            var score = 0;
-            return (loop, score);
+            bool loop = false;
+            return loop;
         }
 
         internal static (int, int, int) CheckThatNumbersAreDivisable()
@@ -120,6 +119,41 @@ namespace MathGame
             int userAnswer = Validation(input);
 
             return (dividend, divisor, userAnswer);
+        }
+
+        internal void GameLogic(int result, int firstValue, int secondValue, ref int score)
+        {
+            Menu menu1 = new Menu();
+            switch (menu1.GameMenu(gameChoice))
+            {
+
+            }
+
+            GameEngine engine = new GameEngine();
+            if (result != firstValue + secondValue)
+            {
+                AddToHistory(score, GameType.Addition);
+                Console.WriteLine($"finished cuz. you got {score}");
+                string restartGame = ValidationYesOrNo("try again y/n");
+
+                if (restartGame == "y")
+                {
+                   Console.Clear();
+                   engine.addition();
+                }
+                else if (restartGame == "n")
+                {
+                    Console.Clear();
+                    Menu menu = new Menu();
+                    menu.GameMenu(player);
+                }
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("correct");
+                score++;
+            }
         }
     }
 }

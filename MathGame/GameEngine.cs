@@ -7,59 +7,30 @@ namespace MathGame
     {
         internal void addition()
         {
-
-            var (loop, score) = Helpers.InitialiseGame();
+            int score = 0;
+            Helpers helpers = new Helpers();
+            var loop = Helpers.InitialiseGame();
 
             do
             {
                 var (firstValue, secondValue, result) = Helpers.GetNumbersAndQuestion("+");
 
+                helpers.GameLogic(result, firstValue, secondValue, ref score);
                 
-                if (result != firstValue + secondValue)
-                {
-                    loop = true;
-                    Helpers.AddToHistory(score, GameType.Addition);
-                    Console.WriteLine($"finished cuz. you got {score}");
-                    string restartGame = Helpers.ValidationYesOrNo("try again y/n");
-
-                    if (restartGame == "y")
-                    {
-                        Console.Clear();
-                        addition();
-                    }
-                    else if (restartGame == "n")
-                    {
-                        Console.Clear();
-                        Menu menu = new Menu();
-                        menu.GameMenu(Helpers.player);
-                    }
-
-                }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine("correct");
-                    score++;
-                }
             } while (loop == false);
-
         }
 
         internal void subtraction()
         {
-            var (loop, score) = Helpers.InitialiseGame();
+            Helpers helpers = new Helpers();
+            var loop = Helpers.InitialiseGame();
+            int score = 0;
             do
             {
                 var (firstValue, secondValue, result) = Helpers.GetNumbersAndQuestion("-");
 
 
-                if (result == firstValue - secondValue)
-                {
-                    Console.Clear();
-                    Console.WriteLine("correct");
-                    score++;
-                }
-                else
+                if (result != firstValue - secondValue)
                 {
                     loop = true;
                     Helpers.AddToHistory(score, GameType.Subtraction);
@@ -77,33 +48,31 @@ namespace MathGame
                         Menu menu = new Menu();
                         menu.GameMenu(Helpers.player);
                     }
-                    else
-                    {
-                        Console.WriteLine("yes or no bruv");
-                    }
                 }
-            } while (loop == false);
-        }
-
-        internal void multiplication()
-        {
-            var (loop, score) = Helpers.InitialiseGame();
-            do
-            {
-                var (firstValue, secondValue, result) = Helpers.GetNumbersAndQuestion("x");
-
-
-                if (result == firstValue * secondValue)
+                else
                 {
                     Console.Clear();
                     Console.WriteLine("correct");
                     score++;
                 }
-                else
+                
+            } while (loop == false);
+        }
+
+        internal void multiplication()
+        {
+            Helpers helpers = new Helpers();
+            var loop = Helpers.InitialiseGame();
+            do
+            {
+                var (firstValue, secondValue, result) = Helpers.GetNumbersAndQuestion("x");
+
+
+                if (result != firstValue * secondValue)
                 {
                     loop = true;
-                    Helpers.AddToHistory(score, GameType.Multiplication);
-                    Console.WriteLine($"finished cuz. you got {score}");
+                    //Helpers.AddToHistory(score, GameType.Multiplication);
+                    //Console.WriteLine($"finished cuz. you got {score}");
                     string restartGame = Helpers.ValidationYesOrNo("try again y/n");
 
                     if (restartGame == "y")
@@ -117,32 +86,30 @@ namespace MathGame
                         Menu menu = new Menu();
                         menu.GameMenu(Helpers.player);
                     }
-                    else
-                    {
-                        Console.WriteLine("yes or no bruv");
-                    }
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("correct");
+                   // score++;
+
                 }
             } while (loop == false);
         }
 
         internal void division()
         {
-            var (loop, score) = Helpers.InitialiseGame();
+            Helpers helpers = new Helpers();
+            var loop = Helpers.InitialiseGame();
             do
             {
                 var (firstValue, secondValue, result) = Helpers.CheckThatNumbersAreDivisable();
 
-                if (result == firstValue / secondValue)
-                {
-                    Console.Clear();
-                    Console.WriteLine("correct");
-                    score++;
-                }
-                else
+                if (result != firstValue / secondValue)
                 {
                     loop = true;
-                    Helpers.AddToHistory(score, GameType.Division);
-                    Console.WriteLine($"finished cuz. you got {score}");
+                    //Helpers.AddToHistory(score, GameType.Division);
+                    //Console.WriteLine($"finished cuz. you got {score}");
                     string restartGame = Helpers.ValidationYesOrNo("try again y/n");
 
                     if (restartGame == "y")
@@ -156,10 +123,12 @@ namespace MathGame
                         Menu menu = new Menu();
                         menu.GameMenu(Helpers.player);
                     }
-                    else
-                    {
-                        Console.WriteLine("yes or no bruv");
-                    }
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("correct");
+                    //score++;
                 }
 
             } while (loop == false);

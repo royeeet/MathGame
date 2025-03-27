@@ -123,11 +123,7 @@ namespace MathGame
 
         internal void GameLogic(int result, int firstValue, int secondValue, ref int score)
         {
-            Menu menu1 = new Menu();
-            switch (menu1.GameMenu(gameChoice))
-            {
 
-            }
 
             GameEngine engine = new GameEngine();
             if (result != firstValue + secondValue)
@@ -138,8 +134,8 @@ namespace MathGame
 
                 if (restartGame == "y")
                 {
-                   Console.Clear();
-                   engine.addition();
+                    Console.Clear();
+                    engine.addition();
                 }
                 else if (restartGame == "n")
                 {
@@ -155,5 +151,6 @@ namespace MathGame
                 score++;
             }
         }
+
     }
 }

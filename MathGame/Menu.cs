@@ -18,8 +18,6 @@ namespace MathGame
             Console.WriteLine("q - quit");
             var gameChoice = Console.ReadLine();
 
-            Helpers.ProcessGameChoice(gameChoice, player);
-
             switch (gameChoice.Trim().ToLower())
             {
                 case "a":

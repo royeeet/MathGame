@@ -121,21 +121,35 @@ namespace MathGame
             return (dividend, divisor, userAnswer);
         }
 
-        internal void GameLogic(int result, int firstValue, int secondValue, ref int score)
+        internal void GameLogic(int result, int firstValue, int secondValue, ref int score, GameType gameChoice)
         {
-
-
             GameEngine engine = new GameEngine();
             if (result != firstValue + secondValue)
             {
-                AddToHistory(score, GameType.Addition);
+                AddToHistory(score, gameChoice);
                 Console.WriteLine($"finished cuz. you got {score}");
                 string restartGame = ValidationYesOrNo("try again y/n");
 
                 if (restartGame == "y")
                 {
                     Console.Clear();
-                    engine.addition();
+                    if (gameChoice == GameType.Addition)
+                    {
+                        engine.addition();
+                    }
+                    else if (gameChoice == GameType.Subtraction)
+                    {
+                        engine.subtraction();
+                    }
+                    else if (gameChoice == GameType.Multiplication)
+                    {
+                        engine.multiplication();
+                    }
+                    else if (gameChoice == GameType.Division)
+                    {
+                        engine.division();
+                    }   
+
                 }
                 else if (restartGame == "n")
                 {

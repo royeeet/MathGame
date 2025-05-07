@@ -15,6 +15,7 @@ namespace MathGame
             {
                 var (firstValue, secondValue, result) = Helpers.GetNumbersAndQuestion("+");
 
+
                 helpers.GameLogic(result, firstValue, secondValue, ref score);
                 
             } while (loop == false);

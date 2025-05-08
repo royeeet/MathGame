@@ -121,10 +121,10 @@ namespace MathGame
             return (dividend, divisor, userAnswer);
         }
 
-        internal void GameLogic(int result, int firstValue, int secondValue, ref int score, GameType gameChoice)
+        internal void GameLogic(int userAnswer, int expected, ref int score, GameType gameChoice)
         {
             GameEngine engine = new GameEngine();
-            if (result != firstValue + secondValue)
+            if (userAnswer != expected)
             {
                 AddToHistory(score, gameChoice);
                 Console.WriteLine($"finished cuz. you got {score}");
@@ -135,19 +135,19 @@ namespace MathGame
                     Console.Clear();
                     if (gameChoice == GameType.Addition)
                     {
-                        engine.addition();
+                        engine.PlayGame(GameType.Addition, "+", (a,b) => a + b);
                     }
                     else if (gameChoice == GameType.Subtraction)
                     {
-                        engine.subtraction();
+                        engine.PlayGame(GameType.Subtraction, "-", (a,b) => a - b);
                     }
                     else if (gameChoice == GameType.Multiplication)
                     {
-                        engine.multiplication();
+                        engine.PlayGame(GameType.Multiplication, "x", (a, b) => a * b);
                     }
                     else if (gameChoice == GameType.Division)
                     {
-                        engine.division();
+                        engine.PlayGame(GameType.Division, "/", (a, b) => a / b);
                     }   
 
                 }

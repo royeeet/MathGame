@@ -1,5 +1,6 @@
 ﻿using System;
 using MathGame;
+using MathGame.Models;
 
 namespace MathGame
 {
@@ -21,19 +22,19 @@ namespace MathGame
             switch (gameChoice.Trim().ToLower())
             {
                 case "a":
-                    gameMenu.addition();
+                    gameMenu.PlayGame(GameType.Addition, "+", (a, b) => a + b);
                     break;
 
                 case "s":
-                    gameMenu.subtraction();
+                    gameMenu.PlayGame(GameType.Subtraction, "-", (a, b) => a - b);
                     break;
 
                 case "m":
-                    gameMenu.multiplication();
+                    gameMenu.PlayGame(GameType.Multiplication, "*", (a, b) => a * b);
                     break;
 
                 case "d":
-                    gameMenu.division();
+                    gameMenu.PlayGame(GameType.Division, "/", (a, b) => a / b);
                     break;
 
                 case "v":

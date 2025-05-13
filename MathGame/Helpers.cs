@@ -1,7 +1,9 @@
-﻿using System;
+﻿using MathGame.Models;
+using System;
 using System.Collections.Generic;
-using MathGame.Models;
-
+using System.Timers;
+using System.Diagnostics;
+using System.Threading;
 
 namespace MathGame
 {
@@ -9,6 +11,7 @@ namespace MathGame
     {
         public static string player = GetName();
         public static List<Game> games = new List<Game>();
+        public static Stopwatch timer = new Stopwatch();
 
         public static void GameHistory()
         {
@@ -23,11 +26,11 @@ namespace MathGame
             {
                 foreach (var game in games)
                 {
-                    Console.WriteLine($"{player}: {game.Type} - Score = {game.Score}");
+                    Console.WriteLine($"Player Name: {player} || Game mode: {game.Type} || Score: {game.Score} || Time: {game.Time:mm\\:ss}");
                 }
             }
 
-            Console.WriteLine("press a key to exit init");
+            Console.WriteLine("press any key to exit");
             Console.ReadLine();
             Console.Clear();
 
@@ -41,18 +44,19 @@ namespace MathGame
             var player = Console.ReadLine();
             while (string.IsNullOrEmpty(player))
             {
-                Console.WriteLine("i said state ur name cuz");
+                Console.WriteLine("i said state your name");
                 player = Console.ReadLine();
             }
             return player;
         }
 
-        internal static void AddToHistory(int score, GameType gameChoice)
+        internal static void AddToHistory(int score, GameType gameChoice, TimeSpan timeTaken)
         {
             games.Add(new Game
             {
                 Type = gameChoice,
-                Score = score
+                Score = score,
+                Time = timeTaken
             });
         }
 
@@ -73,7 +77,7 @@ namespace MathGame
             string yesOrNo = Console.ReadLine();
             while (yesOrNo != "y" && yesOrNo != "n")
             {
-                Console.WriteLine("yes or no bruv");
+                Console.WriteLine("decide yes or no");
                 yesOrNo = Console.ReadLine();
             }
             return yesOrNo;
@@ -84,9 +88,9 @@ namespace MathGame
             Random rand = new Random();
             int firstValue = rand.Next(10);
             int secondValue = rand.Next(10);
-
             Console.WriteLine("solve the following: ");
             Console.WriteLine($"{firstValue} {operation} {secondValue}");
+            timer.Start();
 
             Console.Write("your answer: ");
             string input = Console.ReadLine();
@@ -94,9 +98,12 @@ namespace MathGame
             return (firstValue, secondValue, userAnswer);
         }
 
+        
+
         internal static bool InitialiseGame()
         {
             Console.Clear();
+            timer.Reset();
             bool loop = false;
             return loop;
         }
@@ -121,25 +128,62 @@ namespace MathGame
             return (dividend, divisor, userAnswer);
         }
 
+        internal static void Randomise()
+        {
+            GameEngine engine = new GameEngine();
+
+            Random test = new Random();
+            int data = test.Next(3);
+
+            switch (data)
+            {
+                case 0:
+                    engine.PlayGame(GameType.Addition, "+", (a, b) => a + b);
+                    break;
+                case 1:
+                    engine.PlayGame(GameType.Subtraction, "-", (a, b) => a - b);
+                    break;
+                case 2:
+                    engine.PlayGame(GameType.Multiplication, "x", (a, b) => a * b);
+                    break;
+                case 3:
+                    engine.PlayGame(GameType.Division, "/", (a, b) => a / b);
+                    break;
+            }
+        }
         internal void GameLogic(int userAnswer, int expected, ref int score, GameType gameChoice)
         {
             GameEngine engine = new GameEngine();
-            if (userAnswer != expected)
+            Menu menu = new Menu();
+
+            if (userAnswer == expected)
             {
-                AddToHistory(score, gameChoice);
-                Console.WriteLine($"finished cuz. you got {score}");
-                string restartGame = ValidationYesOrNo("try again y/n");
+                Console.Clear();
+                Console.WriteLine("correct");
+                score++;
+            }
+            else
+            {
+                timer.Stop();
+                TimeSpan timeTaken = timer.Elapsed;
+                string elapsedTime = "time taken (mm:ss): " + timeTaken.ToString(@"mm\:ss");
+                Console.WriteLine(elapsedTime);
+
+                AddToHistory(score, gameChoice, timeTaken);
+                Console.WriteLine($"incorrect. the correct answer was {expected}. your score is {score}.");
+                string restartGame = ValidationYesOrNo("try again? y/n");
 
                 if (restartGame == "y")
                 {
                     Console.Clear();
+                    timer.Reset();
                     if (gameChoice == GameType.Addition)
                     {
-                        engine.PlayGame(GameType.Addition, "+", (a,b) => a + b);
+                        engine.PlayGame(GameType.Addition, "+", (a, b) => a + b);
                     }
                     else if (gameChoice == GameType.Subtraction)
                     {
-                        engine.PlayGame(GameType.Subtraction, "-", (a,b) => a - b);
+                        engine.PlayGame(GameType.Subtraction, "-", (a, b) => a - b);
                     }
                     else if (gameChoice == GameType.Multiplication)
                     {
@@ -148,23 +192,18 @@ namespace MathGame
                     else if (gameChoice == GameType.Division)
                     {
                         engine.PlayGame(GameType.Division, "/", (a, b) => a / b);
-                    }   
-
+                    }
+                    else if (gameChoice == GameType.Random)
+                    {
+                        engine.PlayGame(GameType.Random, "/", (a, b) => a / b);
+                    }
                 }
-                else if (restartGame == "n")
+                else
                 {
                     Console.Clear();
-                    Menu menu = new Menu();
                     menu.GameMenu(player);
                 }
             }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("correct");
-                score++;
-            }
         }
-
     }
 }

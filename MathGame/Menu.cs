@@ -15,6 +15,7 @@ namespace MathGame
             Console.WriteLine("s - subtraction");
             Console.WriteLine("m - multiplication");
             Console.WriteLine("d - division");
+            Console.WriteLine("r - random");
             Console.WriteLine("v - view game history");
             Console.WriteLine("q - quit");
             var gameChoice = Console.ReadLine();
@@ -30,11 +31,15 @@ namespace MathGame
                     break;
 
                 case "m":
-                    gameMenu.PlayGame(GameType.Multiplication, "*", (a, b) => a * b);
+                    gameMenu.PlayGame(GameType.Multiplication, "x", (a, b) => a * b);
                     break;
 
                 case "d":
                     gameMenu.PlayGame(GameType.Division, "/", (a, b) => a / b);
+                    break;
+
+                case "r":
+                    Helpers.Randomise();
                     break;
 
                 case "v":
@@ -42,13 +47,13 @@ namespace MathGame
                     break;
 
                 case "q":
-                    Console.WriteLine("safe init");
+                    Console.WriteLine("thanks for playing!");
                     Environment.Exit(0);
                     break;
 
                 default:
                     Console.Clear();
-                    Console.WriteLine("select one of the options bruv");
+                    Console.WriteLine("select one of the options");
                     GameMenu(player);
                     break;
             }

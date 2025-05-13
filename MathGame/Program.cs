@@ -15,7 +15,11 @@ using MathGame;
  * 
  * 6. implement levels of difficulty
  * 
- * 7. add a timer for games
+ * 7. add a timer for games - done
+ * 
+ * 8. use one method for all games - done
+ * 
+ * 9. create a 'random gane' option
  */
 
 Menu menu = new Menu();
